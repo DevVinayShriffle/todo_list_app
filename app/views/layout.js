@@ -1,8 +1,10 @@
 var Marionette=require('backbone.marionette')
 var FormView=require('./form')
 var ListView=require('./list')
-var BoardView=require('./board')
+const InputView=require('./input')
 const _ = require('underscore')
+const OutputView = require('./output')
+const BoardModel = require('../models/board')
 
 var Layout=Marionette.View.extend({
     template: _.template(require('../templates/layout.html').default),
@@ -10,7 +12,8 @@ var Layout=Marionette.View.extend({
     regions: {
         form: ".form",
         list: ".list",
-        board: ".board",
+        output_slot: ".output-slot",
+        input_slot: ".input-slot"
     },
 
     collectionEvents: {
@@ -22,13 +25,18 @@ var Layout=Marionette.View.extend({
     },
 
     onRender: function(){
+        const sharedModel = new BoardModel();
+
         var formView = new FormView({model: this.model});
         var listView= new ListView({collection: this.collection});
-        var boardView= new BoardView();
+        var inputView = new InputView({model: sharedModel})
+        var outputView = new OutputView({model: sharedModel})
 
         this.showChildView('form', formView);
         this.showChildView('list', listView);
-        this.showChildView('board', boardView);
+        // this.showChildView('board', boardView);
+        this.showChildView('output_slot', outputView);
+        this.showChildView('input_slot', inputView);
     },
 
     childViewEvents: {
