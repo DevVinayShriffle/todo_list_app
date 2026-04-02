@@ -1,6 +1,7 @@
 var Marionette=require('backbone.marionette')
 var FormView=require('./form')
 var ListView=require('./list')
+var BoardView=require('./board')
 const _ = require('underscore')
 
 var Layout=Marionette.View.extend({
@@ -8,7 +9,8 @@ var Layout=Marionette.View.extend({
 
     regions: {
         form: ".form",
-        list: ".list"
+        list: ".list",
+        board: ".board",
     },
 
     collectionEvents: {
@@ -22,9 +24,11 @@ var Layout=Marionette.View.extend({
     onRender: function(){
         var formView = new FormView({model: this.model});
         var listView= new ListView({collection: this.collection});
+        var boardView= new BoardView();
 
         this.showChildView('form', formView);
         this.showChildView('list', listView);
+        this.showChildView('board', boardView);
     },
 
     childViewEvents: {
