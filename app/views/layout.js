@@ -8,7 +8,7 @@ const OutputView = require('./output')
 const BoardModel = require('../models/board')
 const TableView = require('./details')
 const DetailsCollection = require('../collections/details')
-const DetailModel=require('../models/detail')
+const DetailModel = require('../models/detail')
 
 var Layout = Marionette.View.extend({
   template: _.template(require('../templates/layout.html').default),
@@ -23,7 +23,11 @@ var Layout = Marionette.View.extend({
   },
 
   collectionEvents: {
-    add: "itemAdded"
+    update: "itemAdded"
+  },
+
+  itemAdded: function (collection) {
+    collection.each(function (model) { console.log(model) })
   },
 
   initialize: function (options) {
@@ -37,7 +41,7 @@ var Layout = Marionette.View.extend({
       { name: 'Sara', gender: 'female', nationality: 'Germany', url: '/items/2' },
     ])
 
-    var detail_model=new DetailModel({total:30})
+    var detail_model = new DetailModel({ total: 30 })
 
     var tableView = new TableView({ collection: details_collection, model: detail_model })
     var formView = new FormView({ model: this.model });
