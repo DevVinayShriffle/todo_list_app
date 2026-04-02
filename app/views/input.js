@@ -17,6 +17,7 @@ const InputView=Marionette.View.extend({
     const text=this.ui.input.val();
 
     this.model.set("mytext", text);
+    this.ui.input.val('');
   }
 });
 
