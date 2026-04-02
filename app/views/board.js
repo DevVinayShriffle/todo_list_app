@@ -6,11 +6,12 @@ const BoardView=Marionette.View.extend({
   template: _.template(require('../templates/board.html').default),
 
   events: {
-    'click .mybutton': 'alertBox',
+    'keyup .myinput': 'changeDiv',
   },
 
-  alertBox: function() {
-    alert("You have clicked on mybtn click")
+  changeDiv: function() {
+    const text=this.$el.find('.myinput').val();
+    this.$el.find('.mytext').text(text);
   }
 })
 
