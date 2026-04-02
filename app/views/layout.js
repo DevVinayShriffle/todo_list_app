@@ -27,13 +27,16 @@ var Layout=Marionette.View.extend({
         this.showChildView('list', listView);
     },
 
-    onChildviewAddTodoItem: function(){
-        var formView=this.getChildView('form');
-        console.log("Form UI values:", formView.ui.assignee.val(), formView.ui.text.val());
+    childViewEvents: {
+        'add:todo:item': 'onAddTodoItem'
+    },
+
+    onAddTodoItem: function(childView){
+        console.log("Form UI values:", childView.ui.assignee.val(), childView.ui.text.val());
 
         this.model.set({
-            assignee: formView.ui.assignee.val(),
-            text: formView.ui.text.val()
+            assignee: childView.ui.assignee.val(),
+            text: childView.ui.text.val()
         },{validate: true});
 
         if(this.model.isValid()){
@@ -41,20 +44,12 @@ var Layout=Marionette.View.extend({
             this.collection.add(items);
 
             this.model.set(this.model.defaults);
-            // formView.render();
         }else{
             console.log('validation failed');
             
         }
 
     },
-
-    // itemAdded: function(){
-    //     this.model.set({
-    //         assignee:'',
-    //         text:''
-    //     })
-    // }
 })
 
 module.exports=Layout;
