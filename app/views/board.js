@@ -5,13 +5,19 @@ const BoardView=Marionette.View.extend({
   tagName: 'div',
   template: _.template(require('../templates/board.html').default),
 
+  ui: {
+    content: '.mytext',
+    input: '.myinput',
+    button: '.mybutton',
+  },
+
   events: {
-    'keyup .myinput': 'changeDiv',
+    'click @ui.button': 'changeDiv',
   },
 
   changeDiv: function() {
-    const text=this.$el.find('.myinput').val();
-    this.$el.find('.mytext').text(text);
+    const text=this.ui.input.val();
+    this.ui.content.text(text);
   }
 })
 
