@@ -6,12 +6,14 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'), // Output directory
+    publicPath: '/'
   },
   mode: 'development', // or 'production'
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'), // Serve static files from a public folder if needed
     },
+    historyApiFallback: true,
     compress: true,
     port: 9000,
   },
